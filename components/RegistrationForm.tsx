@@ -1,5 +1,6 @@
 'use client';
 import { registerNewUser } from '@/action/auth';
+import { checkEmail } from '@/utils/helper';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -20,17 +21,22 @@ const RegistrationForm = () => {
 			if (password !== repeatPassword) {
 				setError("Password didn't match!");
 			} else {
-				const form = new FormData();
-				form.append('fullname', fullname);
-				form.append('email', email);
-				form.append('password', password);
+				if (checkEmail(email) === false) {
+					setError('Not a valid email address!');
+				} else {
+					const form = new FormData();
+					form.append('fullname', fullname);
+					form.append('email', email);
+					form.append('password', password);
 
-				registerNewUser(form);
+					registerNewUser(form);
 
-				console.log('success');
+					console.log('success');
+				}
 			}
 		}
 	};
+
 	return (
 		<div className="flex justify-center items-center ">
 			<div className="min-w-[400px] grid gap-4">

@@ -3,10 +3,8 @@
 import { auth, signIn, signOut } from '@/auth';
 import db from '@/db';
 import { saltAndHashPassword } from '@/utils/helper';
-import bcrypt, { compareSync } from 'bcryptjs';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { emit } from 'process';
 
 export const login = async (provider: string) => {
 	await signIn(provider, { redirectTo: '/' });
@@ -30,38 +28,22 @@ export const getUserByEmail = async (email: string) => {
 	}
 };
 
-// export const getSecretName = async (secretName: string) => {
-// 	try {
-// 		const user = await db.user.findUnique({
-// 			where: {
-// 				secretName,
-// 			},
-// 		});
-// 		return user;
-// 	} catch (error) {
-// 		console.log(error);
-// 		return null;
-// 	}
-// };
-
 export const loginWithCreds = async (formData: FormData) => {
 	const rawFormData = {
 		email: formData.get('email'),
 		password: formData.get('password'),
 		role: 'USER',
-		redirectTo: '/',
+		redirect: false,
 	};
 
 	const existingUser = await getUserByEmail(formData.get('email') as string);
-	console.log(existingUser);
 
 	try {
-		await signIn('credentials', rawFormData);
+		const response = await signIn('credentials', rawFormData);
+		return response;
 	} catch (error) {
 		console.log(error);
 	}
-	revalidatePath('/');
-	redirect('/dashboard');
 };
 
 export const registerNewUser = async (formData: FormData) => {
@@ -115,12 +97,10 @@ export const pickMonitoMonita = async () => {
 				youPicked: true,
 			},
 		});
-		// console.log(allUsers);
 		const userPool = allUsers.filter(
 			(user) => user.youPicked != session.user?.email
 		);
 
-		// console.log(userPool);
 		const randomNum = Math.floor(Math.random() * userPool.length);
 		const userPicked = userPool[randomNum]; // random pick from the fetch data in db
 
@@ -141,7 +121,6 @@ export const pickMonitoMonita = async () => {
 			},
 		});
 		revalidatePath('/dashboard');
-		//
 	}
 };
 

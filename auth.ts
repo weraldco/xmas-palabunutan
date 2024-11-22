@@ -41,24 +41,21 @@ export const {
 						email,
 					},
 				});
-				if (!user) {
-					user = await db.user.create({
-						data: {
-							email,
-							hashedPassword: hash,
-						},
-					});
-				} else {
+				if (user) {
 					const isMatch = bcrypt.compareSync(
 						credentials.password as string,
 						user.hashedPassword
 					);
 
 					if (!isMatch) {
-						throw new Error('Incorrect Password');
+						throw new Error('Incorrect password');
+					} else {
+						return user;
 					}
+				} else {
+					throw new Error('User not existing');
 				}
-				return user;
+				// return user;
 			},
 		}),
 	],
