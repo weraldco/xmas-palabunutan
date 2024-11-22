@@ -21,18 +21,14 @@ const RegistrationForm = () => {
 			if (password !== repeatPassword) {
 				setError("Password didn't match!");
 			} else {
-				if (checkEmail(email) === false) {
-					setError('Not a valid email address!');
-				} else {
-					const form = new FormData();
-					form.append('fullname', fullname);
-					form.append('email', email);
-					form.append('password', password);
+				const form = new FormData();
+				form.append('fullname', fullname);
+				form.append('email', email);
+				form.append('password', password);
 
-					registerNewUser(form);
+				registerNewUser(form);
 
-					console.log('success');
-				}
+				console.log('success');
 			}
 		}
 	};

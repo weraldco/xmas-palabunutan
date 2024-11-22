@@ -16,15 +16,11 @@ const LoginForm = () => {
 		if (!email || !password) {
 			setError('All fields are required');
 		} else {
-			if (checkEmail(email) === false) {
-				setError('Not a valid email address');
-			} else {
-				const form = new FormData();
-				form.append('email', email);
-				form.append('password', password);
+			const form = new FormData();
+			form.append('email', email);
+			form.append('password', password);
 
-				loginWithCreds(form);
-			}
+			loginWithCreds(form);
 		}
 	};
 	return (
