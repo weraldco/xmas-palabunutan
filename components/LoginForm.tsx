@@ -10,27 +10,27 @@ const LoginForm = () => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		setError('');
-		e.preventDefault();
-		if (!email || !password) {
-			setError('All fields are required');
-		} else {
-			const form = new FormData();
-			form.append('email', email);
-			form.append('password', password);
+	// const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	// 	setError('');
+	// 	e.preventDefault();
+	// 	if (!email || !password) {
+	// 		setError('All fields are required');
+	// 	} else {
+	// 		const form = new FormData();
+	// 		form.append('email', email);
+	// 		form.append('password', password);
 
-			loginWithCreds(form);
-		}
-	};
+	// 		loginWithCreds(form);
+	// 	}
+	// };
 	return (
 		<div>
 			<div className="flex justify-center items-center">
 				<div className="min-w-[400px] grid gap-4">
 					<h1 className="text-2xl font-bold">Login Page</h1>
 					<form
-						onSubmit={handleSubmit}
-						// action={loginWithCreds}
+						// onSubmit={handleSubmit}
+						action={loginWithCreds}
 						className="flex flex-col gap-4"
 					>
 						<div className="flex flex-col gap-1">
