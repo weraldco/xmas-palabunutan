@@ -33,16 +33,19 @@ export const loginWithCreds = async (formData: FormData) => {
 		email: formData.get('email'),
 		password: formData.get('password'),
 		role: 'USER',
-		redirect: false,
+		redirectTo: '/',
 	};
 
 	const existingUser = await getUserByEmail(formData.get('email') as string);
+	console.log(existingUser);
 
 	try {
-		const response = await signIn('credentials', rawFormData);
-		return response;
+		await signIn('credentials', rawFormData);
 	} catch (error) {
 		console.log(error);
+	} finally {
+		revalidatePath('/');
+		redirect('/dashboard');
 	}
 };
 
