@@ -5,8 +5,7 @@ import PickButton from '@/components/PickButton';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
-import { Cherry_Bomb_One, Pixelify_Sans } from 'next/font/google';
-const cherry = Cherry_Bomb_One({ subsets: ['latin'], weight: '400' });
+import { Pixelify_Sans } from 'next/font/google';
 const noto = Pixelify_Sans({ weight: '400', subsets: ['latin'] });
 
 export default async function DashboardPage() {

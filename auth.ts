@@ -4,7 +4,6 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import GitHub from 'next-auth/providers/github';
 import db from './db';
-import { saltAndHashPassword } from './utils/helper';
 
 export const {
 	handlers: { GET, POST },

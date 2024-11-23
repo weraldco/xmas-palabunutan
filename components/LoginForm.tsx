@@ -1,7 +1,6 @@
 'use client';
 import { loginWithCreds } from '@/action/auth';
 // import { checkEmail } from '@/utils/helper';
-import db from '@/db';
 import Link from 'next/link';
 import React from 'react';
 import AuthButtn from './AuthButtn';
@@ -11,19 +10,19 @@ const LoginForm = () => {
 	// const [password, setPassword] = useState('');
 	// const [error, setError] = useState('');
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const getUsers = await loginWithCreds();
-		console.log(getUsers);
-	};
+	// const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	// 	e.preventDefault();
+	// 	const getUsers = await loginWithCreds();
+	// 	console.log(getUsers);
+	// };
 	return (
 		<div>
 			<div className="flex justify-center items-center">
 				<div className="min-w-[400px] grid gap-4">
 					<h1 className="text-2xl font-bold">Login Page</h1>
 					<form
-						onSubmit={handleSubmit}
-						// action={loginWithCreds}
+						// onSubmit={handleSubmit}
+						action={loginWithCreds}
 						className="flex flex-col gap-4"
 					>
 						<div className="flex flex-col gap-1">
