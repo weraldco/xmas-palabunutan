@@ -18,17 +18,21 @@ const RegistrationForm = () => {
 		if (!fullname || !email || !password || !repeatPassword) {
 			setError('All fields are required');
 		} else {
-			if (password !== repeatPassword) {
-				setError("Password didn't match!");
+			if (!checkEmail(email)) {
+				setError('Not a valid email address.');
 			} else {
-				const form = new FormData();
-				form.append('fullname', fullname);
-				form.append('email', email);
-				form.append('password', password);
+				if (password !== repeatPassword) {
+					setError("Password didn't match!");
+				} else {
+					const form = new FormData();
+					form.append('fullname', fullname);
+					form.append('email', email);
+					form.append('password', password);
 
-				registerNewUser(form);
+					registerNewUser(form);
 
-				console.log('success');
+					console.log('success');
+				}
 			}
 		}
 	};
@@ -51,17 +55,7 @@ const RegistrationForm = () => {
 							className="px-4 py-2 rounded-full text-gray-800"
 						/>
 					</div>
-					{/* <div className="flex flex-col gap-1">
-						<label htmlFor="" className="text-sm text-gray-400">
-							Secret name
-						</label>
-						<input
-							name="secretName"
-							type="text"
-							placeholder="ex. Zorro"
-							className="px-4 py-2 rounded-full text-gray-800"
-						/>
-					</div> */}
+
 					<div className="flex flex-col gap-1">
 						<label htmlFor="" className="text-sm text-gray-400">
 							Email address
@@ -108,7 +102,7 @@ const RegistrationForm = () => {
 						Register
 					</button>
 				</form>
-				<span>{error && error}</span>
+				<span className="text-red-400">{error && error}</span>
 				<span>
 					Already registered?{' '}
 					<Link

@@ -1,37 +1,61 @@
 'use client';
-import { loginWithCreds } from '@/action/auth';
-// import { checkEmail } from '@/utils/helper';
+import { getUserByEmail, loginWithCreds } from '@/action/auth';
+import { checkEmail } from '@/utils/helper';
+import bcrypt from 'bcryptjs';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import AuthButtn from './AuthButtn';
 
 const LoginForm = () => {
-	// const [email, setEmail] = useState('');
-	// const [password, setPassword] = useState('');
-	// const [error, setError] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
 
-	// const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-	// 	e.preventDefault();
-	// 	const getUsers = await loginWithCreds();
-	// 	console.log(getUsers);
-	// };
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		setError('');
+		e.preventDefault();
+
+		const form = new FormData();
+		form.append('email', email);
+		form.append('password', password);
+
+		if (!email || !password) {
+			setError('All fields are required!');
+		} else {
+			if (checkEmail(email) === false) {
+				setError('Not a valid email');
+			} else {
+				// Check email
+				const user = await getUserByEmail(email);
+				if (user === null) {
+					setError('You are not register.');
+				} else {
+					const isMatch = bcrypt.compareSync(
+						password,
+						user.hashedPassword as string
+					);
+					if (!isMatch) {
+						setError('Incorrect password');
+					} else {
+						loginWithCreds(form);
+					}
+				}
+			}
+		}
+	};
 	return (
 		<div>
 			<div className="flex justify-center items-center">
 				<div className="min-w-[400px] grid gap-4">
 					<h1 className="text-2xl font-bold">Login Page</h1>
-					<form
-						// onSubmit={handleSubmit}
-						action={loginWithCreds}
-						className="flex flex-col gap-4"
-					>
+					<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 						<div className="flex flex-col gap-1">
 							<label htmlFor="email" className="text-sm text-gray-400">
 								Email address
 							</label>
 							<input
-								// onChange={(e) => setEmail(e.target.value)}
-								// value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								value={email}
 								id="email"
 								name="email"
 								type="text"
@@ -44,8 +68,8 @@ const LoginForm = () => {
 								Password
 							</label>
 							<input
-								// onChange={(e) => setPassword(e.target.value)}
-								// value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								value={password}
 								type="password"
 								id="password"
 								name="password"
@@ -55,7 +79,7 @@ const LoginForm = () => {
 						</div>
 						<AuthButtn />
 					</form>
-					{/* <span className="text-red-400">{error && error}</span> */}
+					<span className="text-red-400">{error && error}</span>
 					<span>
 						Not yet register,{' '}
 						<Link

@@ -8,12 +8,6 @@ export default async function Navbar() {
 	const session = await auth();
 	return (
 		<div className="flex flex-1 flex-row justify-between">
-			{/* <div>
-				<Link href="/">Home</Link>
-			</div>
-			<div>
-				<Link href="/dashboard">Dashboard</Link>
-			</div> */}
 			<div className="flex w-full place-content-end">
 				{!session?.user ? (
 					<div className="flex gap-4">
