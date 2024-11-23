@@ -1,14 +1,14 @@
 'use client';
 import { loginWithCreds } from '@/action/auth';
-import { checkEmail } from '@/utils/helper';
+// import { checkEmail } from '@/utils/helper';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import AuthButtn from './AuthButtn';
 
 const LoginForm = () => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
+	// const [email, setEmail] = useState('');
+	// const [password, setPassword] = useState('');
+	// const [error, setError] = useState('');
 
 	// const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 	// 	setError('');
@@ -38,8 +38,8 @@ const LoginForm = () => {
 								Email address
 							</label>
 							<input
-								onChange={(e) => setEmail(e.target.value)}
-								value={email}
+								// onChange={(e) => setEmail(e.target.value)}
+								// value={email}
 								id="email"
 								name="email"
 								type="text"
@@ -52,8 +52,8 @@ const LoginForm = () => {
 								Password
 							</label>
 							<input
-								onChange={(e) => setPassword(e.target.value)}
-								value={password}
+								// onChange={(e) => setPassword(e.target.value)}
+								// value={password}
 								type="password"
 								id="password"
 								name="password"
@@ -63,7 +63,7 @@ const LoginForm = () => {
 						</div>
 						<AuthButtn />
 					</form>
-					<span className="text-red-400">{error && error}</span>
+					{/* <span className="text-red-400">{error && error}</span> */}
 					<span>
 						Not yet register,{' '}
 						<Link

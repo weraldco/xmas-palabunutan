@@ -44,7 +44,7 @@ export const loginWithCreds = async (formData: FormData) => {
 	} catch (error) {
 		console.log(error);
 	} finally {
-		revalidatePath('/');
+		revalidatePath('/dashboard');
 		redirect('/dashboard');
 	}
 };
@@ -71,8 +71,8 @@ export const registerNewUser = async (formData: FormData) => {
 	} catch (error) {
 		console.log('Something error, while registering new.');
 	} finally {
-		revalidatePath('/');
-		redirect('/');
+		revalidatePath('/login');
+		redirect('/dashboard');
 	}
 };
 

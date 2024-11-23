@@ -34,14 +34,16 @@ export const {
 					return null;
 				}
 				const email = credentials.email as string;
-				const hash = saltAndHashPassword(credentials.password);
+				// const hash = saltAndHashPassword(credentials.password);
 
 				let user: any = await db.user.findUnique({
 					where: {
 						email,
 					},
 				});
-				if (user) {
+				if (!user) {
+					throw new Error('User not existing');
+				} else {
 					const isMatch = bcrypt.compareSync(
 						credentials.password as string,
 						user.hashedPassword
@@ -49,13 +51,9 @@ export const {
 
 					if (!isMatch) {
 						throw new Error('Incorrect password');
-					} else {
-						return user;
 					}
-				} else {
-					throw new Error('User not existing');
 				}
-				// return user;
+				return user;
 			},
 		}),
 	],
