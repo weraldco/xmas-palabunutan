@@ -49,8 +49,7 @@ const RegistrationForm = () => {
 					form.append('wishlist3', wishlist.third);
 
 					registerNewUser(form);
-
-					console.log('success');
+					setLoading(false);
 				}
 			}
 		}

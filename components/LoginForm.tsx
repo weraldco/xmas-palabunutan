@@ -36,8 +36,8 @@ const LoginForm = () => {
 						setError('Incorrect password');
 						setLoading(false);
 					} else {
-						setLoading(false);
 						loginWithCreds(form);
+						setLoading(false);
 					}
 				}
 			}
