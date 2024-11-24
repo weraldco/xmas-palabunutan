@@ -42,9 +42,15 @@ export default async function DashboardPage() {
 						<span className="text-lg md:text-xl italic">
 							You picked{' '}
 							<span className="text-teal-500 font-bold">
-								{result.youPicked}
+								{result.youPicked.toUpperCase()}
 							</span>{' '}
 							as your monito/monita. <br />
+							<div className="flex flex-col text-left">
+								<h1> {result.youPicked.toUpperCase()} WISHLIST:</h1>
+								<span>{result.wishListOne}</span>
+								<span>{result.wishListTwo}</span>
+								<span>{result.wishListThree}</span>
+							</div>
 							See you in the event..
 						</span>
 					)}
