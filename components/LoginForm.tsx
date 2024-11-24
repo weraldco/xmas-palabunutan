@@ -1,34 +1,32 @@
 'use client';
-import { getUserByEmail, loginWithCreds } from '@/action/auth';
-import { checkEmail } from '@/utils/helper';
+import { getUserBySecretName, loginWithCreds } from '@/action/auth';
 import bcrypt from 'bcryptjs';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import AuthButtn from './AuthButtn';
 
 const LoginForm = () => {
-	const [email, setEmail] = useState('');
+	const [secretName, setSecretName] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
 
+	const [error, setError] = useState('');
+	const [loading, setLoading] = useState(false);
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		setError('');
 		e.preventDefault();
-
+		setLoading(true);
 		const form = new FormData();
-		form.append('email', email);
+		form.append('secretName', secretName);
 		form.append('password', password);
-
-		if (!email || !password) {
-			setError('All fields are required!');
-		} else {
-			if (checkEmail(email) === false) {
-				setError('Not a valid email');
+		try {
+			if (!secretName || !password) {
+				setError('All fields are required!');
+				setLoading(false);
 			} else {
-				// Check email
-				const user = await getUserByEmail(email);
+				const user = await getUserBySecretName(secretName);
 				if (user === null) {
 					setError('You are not register.');
+					setLoading(false);
 				} else {
 					const isMatch = bcrypt.compareSync(
 						password,
@@ -36,11 +34,15 @@ const LoginForm = () => {
 					);
 					if (!isMatch) {
 						setError('Incorrect password');
+						setLoading(false);
 					} else {
+						setLoading(false);
 						loginWithCreds(form);
 					}
 				}
 			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 	return (
@@ -50,16 +52,16 @@ const LoginForm = () => {
 					<h1 className="text-2xl font-bold">Login Page</h1>
 					<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 						<div className="flex flex-col gap-1">
-							<label htmlFor="email" className="text-sm text-gray-400">
-								Email address
+							<label htmlFor="secretName" className="text-sm text-gray-400">
+								Secret Name
 							</label>
 							<input
-								onChange={(e) => setEmail(e.target.value)}
-								value={email}
-								id="email"
-								name="email"
+								onChange={(e) => setSecretName(e.target.value)}
+								value={secretName}
+								id="secretName"
+								name="secretName"
 								type="text"
-								placeholder="Enter your email address.."
+								placeholder="Enter your secretName.."
 								className="px-4 py-2 rounded-full text-gray-800"
 							/>
 						</div>
@@ -77,7 +79,7 @@ const LoginForm = () => {
 								className="px-4 py-2 rounded-full text-gray-800"
 							/>
 						</div>
-						<AuthButtn />
+						<AuthButtn loading={loading}>Login</AuthButtn>
 					</form>
 					<span className="text-red-400">{error && error}</span>
 					<span>

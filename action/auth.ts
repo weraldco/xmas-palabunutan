@@ -16,10 +16,19 @@ export const logout = async () => {
 	revalidatePath('/');
 };
 
-export const getUserByEmail = async (email: string) => {
+export const getUserById = async (id: string) => {
+	try {
+		const user = await db.user.findUnique({ where: { id } });
+		return user;
+	} catch (error) {
+		console.error(error);
+		return null;
+	}
+};
+export const getUserBySecretName = async (secretName: string) => {
 	try {
 		const user = await db.user.findUnique({
-			where: { email },
+			where: { secretName },
 		});
 		return user;
 	} catch (error) {
@@ -30,7 +39,7 @@ export const getUserByEmail = async (email: string) => {
 
 export const loginWithCreds = async (formData: FormData) => {
 	const rawFormData = {
-		email: formData.get('email'),
+		secretName: formData.get('secretName'),
 		password: formData.get('password'),
 		role: 'USER',
 		redirectTo: '/',
@@ -50,17 +59,22 @@ export const registerNewUser = async (formData: FormData) => {
 
 	try {
 		// check if email is existing
-		const existingEmail = await getUserByEmail(formData.get('email') as string);
+		const existingUser = await getUserBySecretName(
+			formData.get('secretName') as string
+		);
 
-		if (existingEmail) {
+		if (existingUser) {
 			console.log('User exist cannot register!');
 			return null;
 		} else {
 			await db.user.create({
 				data: {
 					name: formData.get('fullname') as string,
-					email: formData.get('email') as string,
+					secretName: formData.get('secretName') as string,
 					hashedPassword: hash,
+					wishListOne: formData.get('wishlist1') as string,
+					wishListTwo: formData.get('wishlist2') as string,
+					wishListThree: formData.get('wishlist3') as string,
 				},
 			});
 		}
@@ -76,8 +90,8 @@ export const pickMonitoMonita = async () => {
 	const session = await auth();
 	console.log(session);
 	// Get all the users except you
-	console.log(session?.user?.email);
-	if (session?.user?.email) {
+	console.log(session?.user?.secretName);
+	if (session?.user?.secretName) {
 		const allUsers = await db.user.findMany({
 			where: {
 				OR: [
@@ -86,18 +100,18 @@ export const pickMonitoMonita = async () => {
 					},
 				],
 				NOT: {
-					email: session.user.email,
+					secretName: session.user.secretName,
 				},
 			},
 			select: {
 				id: true,
-				email: true,
+				secretName: true,
 				picked: true,
 				youPicked: true,
 			},
 		});
 		const userPool = allUsers.filter(
-			(user) => user.youPicked != session.user?.email
+			(user) => user.youPicked != session.user?.secretName
 		);
 
 		const randomNum = Math.floor(Math.random() * userPool.length);
@@ -105,10 +119,10 @@ export const pickMonitoMonita = async () => {
 
 		await db.user.update({
 			where: {
-				email: session?.user?.email,
+				secretName: session?.user?.secretName,
 			},
 			data: {
-				youPicked: userPicked.email,
+				youPicked: userPicked.secretName,
 			},
 		});
 		await db.user.update({
@@ -123,11 +137,11 @@ export const pickMonitoMonita = async () => {
 	}
 };
 
-export const getPickedResult = async (email: string) => {
+export const getPickedResult = async (secretName: string) => {
 	try {
 		const result = await db.user.findUnique({
 			where: {
-				email,
+				secretName,
 			},
 		});
 		return result;

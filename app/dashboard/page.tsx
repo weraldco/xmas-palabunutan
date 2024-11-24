@@ -10,10 +10,11 @@ const noto = Pixelify_Sans({ weight: '400', subsets: ['latin'] });
 
 export default async function DashboardPage() {
 	const session = await auth();
+	console.log(session);
 	if (!session?.user) {
 		redirect('/login');
 	}
-	const result = await getPickedResult(session.user.email as string);
+	const result = await getPickedResult(session.user.secretName as string);
 	return (
 		<div>
 			<Navbar />

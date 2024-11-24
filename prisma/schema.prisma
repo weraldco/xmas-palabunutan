@@ -4,7 +4,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "dataProxy"
 }
 
 enum UserRole {
@@ -15,10 +16,13 @@ enum UserRole {
 model User {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
-  email          String?         @unique
+  secretName     String          @unique
   hashedPassword String?
   youPicked      String?
   picked         Boolean?        @default(false)
+  wishListOne    String?
+  wishListTwo    String?
+  wishListThree  String?
   emailVerified  DateTime?
   image          String?
   accounts       Account[]

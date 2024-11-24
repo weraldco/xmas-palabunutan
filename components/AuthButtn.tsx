@@ -1,15 +1,31 @@
 'use client';
-import React from 'react';
-import { useFormStatus } from 'react-dom';
+import React, { ReactNode } from 'react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-export default function AuthButtn() {
-	const { pending } = useFormStatus();
+type AuthButtnProps = {
+	loading: boolean;
+	children: ReactNode;
+};
+
+const AuthButtn: React.FC<AuthButtnProps> = ({ loading, children }) => {
 	return (
 		<button
+			disabled={loading}
 			type="submit"
 			className="bg-teal-500 px-4 py-4 w-full rounded-full hover:bg-teal-400 hover:scale-105 active:bg-teal-300 duration-200 mt-2"
 		>
-			Login
+			{loading ? (
+				<div className="flex justify-center items-center">
+					<AiOutlineLoading3Quarters
+						size={30}
+						className="animate-spin text-center"
+					/>
+				</div>
+			) : (
+				<p>{children}</p>
+			)}
 		</button>
 	);
-}
+};
+
+export default AuthButtn;
