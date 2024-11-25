@@ -6,10 +6,14 @@ export default function Home() {
 	return (
 		<div className="flex flex-col items-center justify-center h-[60vh] gap-10 text-center">
 			<div>
-				<h1 className={`text-[80px] ${cherry.className} text-pink-400`}>
+				<h1
+					className={`text-[65px] md:text-[80px] ${cherry.className} text-pink-400`}
+				>
 					XMAS 2024
 				</h1>
-				<div className={`${noto.className} text-[20px] max-w-[600px]`}>
+				<div
+					className={`${noto.className} text-[16px] md:text-[20px] max-w-[600px]`}
+				>
 					You are invited this coming December 21-20, 2024. <br /> Come and join
 					our Christmas Party <br />
 					party start at 6:30 PM.

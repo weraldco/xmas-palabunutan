@@ -57,7 +57,7 @@ const RegistrationForm = () => {
 
 	return (
 		<div className="flex justify-center items-center ">
-			<div className="min-w-[400px] grid gap-4">
+			<div className="grid gap-4 md:w-[450px] w-[350px]">
 				<h1 className="text-2xl font-bold">Registration</h1>
 				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 					<div className="flex flex-col gap-1">

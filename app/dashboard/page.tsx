@@ -39,20 +39,27 @@ export default async function DashboardPage() {
 							<PickButton />
 						</div>
 					) : (
-						<span className="text-lg md:text-xl italic">
-							You picked{' '}
-							<span className="text-teal-500 font-bold">
-								{result.youPicked.toUpperCase()}
-							</span>{' '}
-							as your monito/monita. <br />
-							<div className="flex flex-col text-left">
-								<h1> {result.youPicked.toUpperCase()} WISHLIST:</h1>
-								<span>{result.wishListOne}</span>
-								<span>{result.wishListTwo}</span>
-								<span>{result.wishListThree}</span>
+						<div className="text-sm md:text-base italic w-[300px] md:w-[400px] flex flex-col gap-2">
+							<span>Your secret santa is</span>
+							<div className="bg-teal-500 p-10 rounded-xl flex flex-col gap-10">
+								<span className=" font-bold text-5xl text-pink-300 ">
+									{result.youPicked.toUpperCase()}
+								</span>
+								<div className="flex flex-col text-left">
+									<h1> {result.youPicked.toUpperCase()} WISHLIST:</h1>
+									<span>{result.wishListOne}</span>
+									{result.wishListTwo ? (
+										<span>{result.wishListTwo}</span>
+									) : result.wishListThree ? (
+										<span>{result.wishListThree}</span>
+									) : null}
+								</div>
 							</div>
-							See you in the event..
-						</span>
+							<span>
+								Thank you for participating in our Secret Santa gift exchange!
+								See you in the event..
+							</span>
+						</div>
 					)}
 				</div>
 			</div>

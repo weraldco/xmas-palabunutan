@@ -46,52 +46,50 @@ const LoginForm = () => {
 		}
 	};
 	return (
-		<div>
-			<div className="flex justify-center items-center">
-				<div className="min-w-[400px] grid gap-4">
-					<h1 className="text-2xl font-bold">Login Page</h1>
-					<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-						<div className="flex flex-col gap-1">
-							<label htmlFor="secretName" className="text-sm text-gray-400">
-								Secret Name
-							</label>
-							<input
-								onChange={(e) => setSecretName(e.target.value)}
-								value={secretName}
-								id="secretName"
-								name="secretName"
-								type="text"
-								placeholder="Enter your secretName.."
-								className="px-4 py-2 rounded-full text-gray-800"
-							/>
-						</div>
-						<div className="flex flex-col gap-1">
-							<label htmlFor="password" className="text-sm text-gray-400">
-								Password
-							</label>
-							<input
-								onChange={(e) => setPassword(e.target.value)}
-								value={password}
-								type="password"
-								id="password"
-								name="password"
-								placeholder="Enter your password."
-								className="px-4 py-2 rounded-full text-gray-800"
-							/>
-						</div>
-						<AuthButtn loading={loading}>Login</AuthButtn>
-					</form>
-					<span className="text-red-400">{error && error}</span>
-					<span>
-						Not yet register,{' '}
-						<Link
-							className="text-pink-400 font-semibold hover:text-pink-300 duration-200"
-							href="/register"
-						>
-							Sign up here!
-						</Link>
-					</span>
-				</div>
+		<div className="flex justify-center items-center">
+			<div className=" grid gap-4 w-[350px] md:w-[450px] ">
+				<h1 className="text-2xl font-bold">Login Page</h1>
+				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
+					<div className="flex flex-col gap-1">
+						<label htmlFor="secretName" className="text-sm text-gray-400">
+							Secret Name
+						</label>
+						<input
+							onChange={(e) => setSecretName(e.target.value)}
+							value={secretName}
+							id="secretName"
+							name="secretName"
+							type="text"
+							placeholder="Enter your secretName.."
+							className="px-4 py-2 rounded-full text-gray-800"
+						/>
+					</div>
+					<div className="flex flex-col gap-1">
+						<label htmlFor="password" className="text-sm text-gray-400">
+							Password
+						</label>
+						<input
+							onChange={(e) => setPassword(e.target.value)}
+							value={password}
+							type="password"
+							id="password"
+							name="password"
+							placeholder="Enter your password."
+							className="px-4 py-2 rounded-full text-gray-800"
+						/>
+					</div>
+					<AuthButtn loading={loading}>Login</AuthButtn>
+				</form>
+				<span className="text-red-400">{error && error}</span>
+				<span>
+					Not yet register,{' '}
+					<Link
+						className="text-pink-400 font-semibold hover:text-pink-300 duration-200"
+						href="/register"
+					>
+						Sign up here!
+					</Link>
+				</span>
 			</div>
 		</div>
 	);
