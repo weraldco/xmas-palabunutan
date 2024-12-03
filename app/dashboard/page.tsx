@@ -14,6 +14,7 @@ export default async function DashboardPage() {
 	if (!session?.user) {
 		redirect('/login');
 	}
+	// Lipat natin to sa api call
 	const result = await getPickedResult(session.user.secretName as string);
 	return (
 		<div>
@@ -22,8 +23,8 @@ export default async function DashboardPage() {
 			<div className="flex flex-col items-center justify-center h-[60vh] text-center gap-4">
 				<div className="flex flex-col justify-center items-center gap-4">
 					<span className={`text-4xl md:text-5xl ${noto.className}`}>
-						Welcome aboard,{' '}
-						<span className="text-pink-500">{session.user.name}</span>
+						Welcome aboard,
+						<br /> <span className="text-pink-500">{session.user.name}</span>
 					</span>
 				</div>
 				<div className="flex justify-center items-center">

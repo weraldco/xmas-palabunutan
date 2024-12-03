@@ -49,7 +49,7 @@ export const loginWithCreds = async (formData: FormData) => {
 	} catch (error) {
 		console.log(error);
 	} finally {
-		revalidatePath('/dashboard');
+		revalidatePath('/login');
 		redirect('/dashboard');
 	}
 };
