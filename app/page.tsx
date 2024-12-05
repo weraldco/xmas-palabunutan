@@ -14,9 +14,9 @@ export default function Home() {
 				<div
 					className={`${noto.className} text-[16px] md:text-[20px] max-w-[600px]`}
 				>
-					You are invited this coming December 21-20, 2024. <br /> Come and join
-					our Christmas Party <br />
-					party start at 6:30 PM.
+					You are invited this coming December 21-22, 2024. <br /> Come and join
+					our Christmas Party. <br />
+					The party starts at 6:30 PM.
 				</div>
 			</div>
 			<div className="flex gap-x-4">

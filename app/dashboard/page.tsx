@@ -31,11 +31,10 @@ export default async function DashboardPage() {
 					{result?.youPicked == null ? (
 						<div className="flex flex-col gap-10">
 							<div className={`w-[350px] md:w-[500px] italic`}>
-								Thank you for joining this event! The button below is used to
-								select your monito/monita for the Christmas Party, but it is
-								currently disabled. Once all invited guests have registered, the
-								button will automatically be enabled. We will announce when the
-								button is ready to use.
+								Thank you for joining this event! The button below will be used
+								to draw your Monito/Monita for the Christmas Party. It is
+								currently disabled, and it will be active once all guests have
+								registered. We will announce when the button is ready to use.
 							</div>
 							<PickButton />
 						</div>
